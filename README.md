@@ -156,7 +156,18 @@ Headers: {"Accept":["*/*"],"User-Agent":["curl/7.68.0"]}
 
 {% enddetails %}
 
-The reason is, that the health check command is executed inside the container, and in our case we are trying to use curl even though its not installed in the container.
+The reason is, that the health check command is executed inside the container, and in our case we are trying to use curl even though its not installed in the container. We can see this by inspecting the status logs in the docker inspect output.
+
+```shell
+docker inspect echo-server --format \
+  '{{range .State.Health.Log}}{{.End}} | Exit Code: {{.ExitCode}} | {{.Output}}{{end}}
+```
+
+```shell
+2021-06-30 10:06:05.795671501 +0000 UTC | Exit Code: 1 | /bin/sh: curl: not found
+2021-06-30 10:06:35.888445198 +0000 UTC | Exit Code: 1 | /bin/sh: curl: not found
+2021-06-30 10:07:05.959345369 +0000 UTC | Exit Code: 1 | /bin/sh: curl: not found
+```
 
 We could simply install curl on build in order to fix this.
 
