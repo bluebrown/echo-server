@@ -120,7 +120,7 @@ HEALTHCHECK \
   --timeout=30s \
   --start-period=5s \
   --retries=3 \
-  CMD curl --fail localhost || exit 1
+  CMD curl --head --fail localhost || exit 1
 ...
 ```
 
@@ -330,7 +330,7 @@ HEALTHCHECK \
   --timeout=30s \
   --start-period=5s \
   --retries=3 \
-  CMD curl --fail localhost || exit 1
+  CMD curl --head --fail localhost || exit 1
 
 ARG UID=8080
 ARG USER="docker-app"
