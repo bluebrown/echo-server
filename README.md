@@ -50,7 +50,7 @@ You can find the full [project](https://github.com/bluebrown/echo-server) on git
 
 ## Dockerignore
 
-With the `.dockerignore` field we can exclude content from build directory. So what's listed in this file will not get send to the daemon as build part of the  context.
+With the `.dockerignore` file we can exclude content from build directory. So what's listed in this file will not get send to the daemon as build part of the  context.
 
 ```shell
 $ docker build --tag bluebrown/echo-server .
@@ -104,7 +104,7 @@ golang                  latest    ee23292e2826   4 days ago       862MB
 alpine                  latest    d4ff818577bc   12 days ago      5.6MB
 ```
 
-It is not always or useful to use multi-stage build. For example, you can compile the binary outside the image and copy in the final alpine image. However, compiling on build ensures that it is always compiled in the same environment with the same flags.
+It is not always required or useful to use multi-stage build. For example, you can compile the binary outside the image and copy in the final alpine image. However, compiling on build ensures that it is always compiled in the same environment with the same flags.
 
 ## Healthcheck
 
@@ -128,7 +128,7 @@ When running starting the container now, we can also see the health status via C
 
 ```shell
 $ docker run --rm  --detach --name echo-server -p 80:80  bluebrown/echo-server
-$ docker container ls --format '{{.Names}} - {{.Status}}'
+$ docker ps -a --format '{{.Names}} - {{.Status}}'
 echo-server - Up 5 seconds (health: starting)
 ```
 
